@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AIM Chatbot</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        #chatbox {
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>AIM Upskill Technologies Chatbot</h2>
+
+<div id="chatbox"></div>
+
+<input type="text" id="userInput" placeholder="Ask a question">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+function sendMessage() {
+    let input = document.getElementById("userInput").value.toLowerCase();
+    let chatbox = document.getElementById("chatbox");
+
+    let response = "Sorry, I didn't understand.";
+
+    if(input.includes("hi") || input.includes("hello"))
+        response = "Hello! Welcome to AIM Upskill Technologies.";
+
+    else if(input.includes("courses"))
+        response = "We offer Python, Java, Data Science, Full Stack Development, Cyber Security and more.";
+
+    else if(input.includes("contact"))
+        response = "Contact: 9700029913, 7989599972";
+
+    else if(input.includes("location"))
+        response = "Old Gajuwaka Junction, Visakhapatnam.";
+
+    chatbox.innerHTML += "<p><b>You:</b> " + input + "</p>";
+    chatbox.innerHTML += "<p><b>Bot:</b> " + response + "</p>";
+
+    document.getElementById("userInput").value = "";
+}
+</script>
+
+</body>
+</html>
