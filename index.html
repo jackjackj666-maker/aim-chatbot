@@ -120,6 +120,240 @@ color:#0056d2;
 padding:8px 12px;
 white-space:nowrap;
 }
+.typing-bubble {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #555;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-container">
+
+<div class="header">
+<h2>AIM Chatbot</h2>
+<p>AIM Upskill Technologies Pvt. Ltd.</p>
+</div>
+
+<div class="quick-buttons">
+<button onclick="quickAsk('courses')">Courses</button>
+<button onclick="quickAsk('contact')">Contact</button>
+<button onclick="quickAsk('location')">Location</button>
+<button onclick="quickAsk('placement')">Placement</button>
+</div>
+
+<div class="chat-box" id="chatBox">
+<div class="message bot">
+Hello 👋<br>
+Welcome to AIM Upskill Technologies.<br>
+How can I help you today?
+</div>
+</div>
+
+<div class="input-area">
+<input type="text" id="userInput" placeholder="Type your question...">
+<button onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+
+<script>
+
+function addMessage(text,type){
+let chatBox=document.getElementById("chatBox");
+
+let msg=document.createElement("div");
+msg.className="message "+type;
+msg.innerHTML=text;
+
+chatBox.appendChild(msg);
+chatBox.scrollTop=chatBox.scrollHeight;
+}
+
+function getBotResponse(input){
+
+input=input.toLowerCase();
+
+if(input.includes("hi") || input.includes("hello"))
+return "Hello! Welcome to AIM Upskill Technologies.";
+
+if(input.includes("name"))
+return "Our institute name is AIM Upskill Technologies Pvt. Ltd.";
+
+if(input.includes("courses"))
+return "Courses: Python, Java, Data Science, Machine Learning, Full Stack Development, Cyber Security, Networking, C, C++ and more.";
+
+if(input.includes("python"))
+return "We provide Core Python, Advanced Python and Full Stack Python training.";
+
+if(input.includes("java"))
+return "We provide Core Java, Advanced Java and Full Stack Java training.";
+
+if(input.includes("location"))
+return "Old Gajuwaka Junction, Opp Signal Point, Visakhapatnam.";
+
+if(input.includes("contact"))
+return "Phone: 9700029913<br>Phone: 7989599972";
+
+if(input.includes("email"))
+return "aimsoftwaretechnologiesvsp@gmail.com";
+
+if(input.includes("placement"))
+return "We provide placement assistance and career guidance.";
+
+if(input.includes("timing"))
+return "Institute timings: 9:00 AM to 8:00 PM";
+
+return "Sorry, I didn't understand. Please ask about courses, contact, location, timings or placements.";
+}
+
+function sendMessage(){
+
+let input=document.getElementById("userInput");
+
+if(input.value.trim()==="") return;
+
+let userText = input.value;
+
+// show user message
+addMessage(userText,"user");
+
+// clear input early
+input.value="";
+
+// get response ONCE
+let response = getBotResponse(userText);
+
+let chatBox = document.getElementById("chatBox");
+
+// typing animation
+let typing = document.createElement("div");
+typing.className = "message bot typing";
+typing.id = "typing";
+typing.innerHTML = `
+<div class="typing-bubble">
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
+`;
+
+chatBox.appendChild(typing);
+chatBox.scrollTop = chatBox.scrollHeight;
+
+// delay response
+setTimeout(()=>{
+
+let t = document.getElementById("typing");
+if(t) t.remove();
+
+addMessage(response,"bot");
+
+},900);
+
+}
+
+input.value="";
+}
+
+function quickAsk(text){
+document.getElementById("userInput").value=text;
+sendMessage();
+}
+
+document.getElementById("userInput")
+.addEventListener("keypress",function(e){
+if(e.key==="Enter"){
+sendMessage();
+}
+});
+
+</script>
+
+</body>
+</html>color:white;
+margin-left:auto;
+border-bottom-right-radius:5px;
+}
+
+.bot{
+background:white;
+border:1px solid #ddd;
+border-bottom-left-radius:5px;
+}
+
+.input-area{
+display:flex;
+padding:10px;
+background:white;
+border-top:1px solid #ddd;
+}
+
+input{
+flex:1;
+padding:12px;
+border:1px solid #ccc;
+border-radius:10px;
+outline:none;
+}
+
+button{
+margin-left:10px;
+padding:12px 18px;
+border:none;
+background:#0056d2;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+.quick-buttons{
+padding:10px;
+display:flex;
+gap:8px;
+overflow-x:auto;
+background:white;
+}
+
+.quick-buttons button{
+background:#e8f0ff;
+color:#0056d2;
+padding:8px 12px;
+white-space:nowrap;
+}
 </style>
 </head>
 
